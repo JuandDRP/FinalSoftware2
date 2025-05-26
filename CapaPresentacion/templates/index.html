@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistente Virtual de Psicología</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-lg rounded-xl w-full max-w-md">
+    <div class="bg-indigo-600 text-white text-center py-4 rounded-t-xl">
+      <h1 class="text-2xl font-bold">Asistente Virtual de Psicología</h1>
+      <p class="text-sm">Estamos aquí para escucharte</p>
+    </div>
+
+    <div class="p-4 space-y-4">
+      <div class="space-y-2" id="chat-log">
+      </div>
+      <div class="flex space-x-2">
+        <input
+          id="userInput"
+          type="text"
+          placeholder="Escribe tu mensaje aquí..."
+          class="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
+        <button
+          onclick="sendMessage()"
+          class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      const chatLog = document.getElementById('chat-log');
+      if (!message) return;
+      const userMsg = document.createElement('div');
+      userMsg.className = "text-right";
+      userMsg.innerHTML = `<span class="bg-indigo-100 px-3 py-2 rounded-full inline-block">${message}</span>`;
+      chatLog.appendChild(userMsg);
+      input.value = "";
+      fetch('/send_message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({ 'message': message })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const botMsg = document.createElement('div');
+        botMsg.className = "text-left";
+        botMsg.innerHTML = `<span class="bg-gray-200 px-3 py-2 rounded-full inline-block">${data.message}</span>`;
+        chatLog.appendChild(botMsg);
+        chatLog.scrollTop = chatLog.scrollHeight;
+      })
+      .catch(() => {
+        const errorMsg = document.createElement('div');
+        errorMsg.className = "text-left text-red-500 text-sm";
+        errorMsg.textContent = "Hubo un error al enviar el mensaje.";
+        chatLog.appendChild(errorMsg);
+      });
+    }
+  </script>
+</body>
+</html>
