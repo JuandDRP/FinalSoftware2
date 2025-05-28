@@ -3,3 +3,4 @@ client_secret_app_escritorio_oauth.json
 *.env
 .coverage
 .env
+/node_modules

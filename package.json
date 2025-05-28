@@ -1,0 +1,27 @@
+{
+  "name": "nueva-carpeta",
+  "version": "1.0.0",
+  "description": "- JUAN DE DIOS RODRIGUEZ PEREZ - 2210004\r - Este proyecto esta conectado a la api de openai.\r - Reemplazar en openai_api_key=\"\" por la key correspondiente",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuandDRP/Finalsoftware2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JuandDRP/Finalsoftware2/issues"
+  },
+  "homepage": "https://github.com/JuandDRP/Finalsoftware2#readme",
+  "devDependencies": {
+    "cypress": "^14.4.0"
+  }
+}
